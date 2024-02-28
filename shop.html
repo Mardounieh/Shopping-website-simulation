@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="assets/scripts/app.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/icons/css/all.css">
+    <title>Shop</title>
+</head>
+<body class="flex flex-col">
+    <header class="fixed top-0 w-full bg-white p-2 flex gap-2 items-center justify-between md:block">
+        <aside class="">
+            <i id="menuBtn" class="fal fa-bars text-xl text-white cursor-pointer border border-black rounded bg-emerald-600 px-2 md:hidden"></i>
+            <ul id="menu" class="w-1/2 duration-200 flex flex-col h-screen gap-5 absolute border md:hidden top-0 -left-96 border-r-2 border-emerald-400 bg-white p-2">
+                <i id="closeMenuBtn" class="fal fa-close self-end text-xl  text-white cursor-pointer border border-black rounded bg-emerald-600 px-2 md:hidden"></i>
+                <li><button class="w-full flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/boot.png" alt="Boot"><span>Boots</span></button></li>
+                <li><button class="w-full flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/jeans.png" alt="Jeans"><span>Jeans</span></button></li>
+                <li><button class="w-full flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/shirt.png" alt="Shirt"><span>Shirts</span></button></li>
+                <li><button class="w-full flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/suit.png" alt="Suit"><span>Suits</span></button></li>
+                <li><button class="w-full flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/dress.png" alt="Dress"><span>Dresses</span></button></li>
+                <li><button class="w-full flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/handbag.png" alt=""><span>Purses</span></button></li>
+            </ul>
+        </aside>
+        <nav class="flex justify-around md:flex-col-reverse lg:flex-row md:items-center gap-2">
+            <ul class="md:w-3/4 lg:w-1/2 hidden md:flex gap-2 justify-evenly items-center">
+                <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/boot.png" alt="Boot"><span>Boots</span></button></li>
+                <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/jeans.png" alt="Jeans"><span>Jeans</span></button></li>
+                <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/shirt.png" alt="Shirt"><span>Shirts</span></button></li>
+                <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/suit.png" alt="Suit"><span>Suits</span></button></li>
+                <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/dress.png" alt="Dress"><span>Dresses</span></button></li>
+                <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/handbag.png" alt=""><span>Purses</span></button></li>
+            </ul>
+            <div id="menu" class="flex items-center gap-2">
+                <div class="border-[1px] px-2 border-black rounded">
+                    <input type="text" placeholder="Search Products" class="outline-none caret-emerald-600">
+                    <i class="fal fa-magnifying-glass cursor-pointer text-xl"></i>
+                </div>
+                <div id="userButtons" class="flex items-center gap-3 border rounded border-slate-900">
+                    <i id="login" class="fal fa-user text-xl ml-2 cursor-pointer"></i>
+                    <div id="cart" class="cartContainer relative flex items-center px-2 gap-2 bg-emerald-600 w-full cursor-pointer">
+                        <i class="fal fa-bag-shopping text-xl text-white"></i>
+                        <p id="cartCounter" class="text-xl text-white">0</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <aside class="hidden absolute w-1/4 border bg-white border-emerald-500 rounded-lg p-2 top-12" id="productCartContainer">
+            <div>
+                <h3>My Cart : </h3>
+                <div id="cartMain"></div>
+                <div>
+                    <div>Total Price : <span id="totalPrice">0</span>$</div>
+                    <button id="clear">Clear</button>
+                    <button id="checkout">Checkout</button>
+                </div>
+            </div>
+        </aside>
+        <aside id="loginSection" class="hidden absolute w-1/4 border bg-white border-emerald-500 rounded-lg p-2 top-12">
+            <div class="flex flex-col gap-2 items-center">
+                <div class="border p-1 rounded border-emerald-400 w-full">
+                    <i class="fal fa-user"></i>
+                    <input type="text" placeholder="Username" class="outline-none">
+                </div>
+                <div class="border p-1 rounded border-emerald-400 w-full">
+                    <i class="fal fa-key"></i>
+                    <input type="password" placeholder="Password" class="outline-none">
+                </div>
+                <input type="button" value="Login" class="bg-emerald-500 w-1/4 rounded text-white text-xl cursor-pointer">
+            </div>
+        </aside>
+    </header>
+    <main id="main" class="grid grid-cols-3 gap-4 items-center justify-items-center bg-neutral-100">
+    </main>
+</body>
+</html>
