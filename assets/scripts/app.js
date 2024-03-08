@@ -1,3 +1,7 @@
+// import { limitText } from "./limitText.js";
+
+//? HTML Elements
+const search = document.getElementById('searchInput');
 const menuButton = document.getElementById('menuBtn');
 const closeMenuButton = document.getElementById('closeMenuBtn');
 const menu = document.getElementById('menu');
@@ -5,9 +9,48 @@ const login = document.getElementById('login');
 const cart = document.getElementById('cart');
 const loginSection = document.getElementById('loginSection');
 const productCartContainer = document.getElementById('productCartContainer');
-const main = document.getElementById('main')
+const main = document.getElementById('main');
+const catItems = document.querySelectorAll('#menu li')
+
+menuButton.addEventListener('click', () => {
+    menu.classList.toggle('-left-96')
+    menu.classList.toggle('left-0')
+})
+closeMenuButton.addEventListener('click', () => {
+    menu.classList.toggle('-left-96');
+    menu.classList.toggle('left-0')
+})
+
+//* Filter Product Section
+const filterProducts = async (event) => {
+    const result = await fetch('./assets/products/products.json')
+    const data = await result.json();
+    const productResults = data.filter(product => product.category === event.target.innerHTML.toLowerCase());
+    createProduct(productResults);
+}
+catItems.forEach(catItem => catItem.addEventListener('click', filterProducts));
+//* Filter Product Section
+
+//? Search
+const searchProducts = async () => {
+    if(search.value.length === 1) return;
+    const result = await fetch('./assets/products/products.json')
+    const data = await result.json();
+    const productResults = data.filter(product => {
+        return product.title.toLowerCase().includes(search.value.toLowerCase());
+    })
+    createProduct(productResults);
+}
+search.addEventListener('input', searchProducts)
+//? Search
 
 const createProduct = (data) => {
+    if(data.length === 0) {
+        main.innerHTML = `
+            <h2 class="absolute top-24 text-2xl font-bold text-red-600">Not Found</h2>
+        `
+    }
+    main.innerHTML = '';
     data.forEach(product => {
         const productDiv = document.createElement('div');
         productDiv.classList.add('rounded', 'shadow-lg','w-2/3','flex','flex-col','gap-2');
@@ -53,12 +96,3 @@ else if(window.innerWidth > 320 && window.innerWidth <= 640) {
     productCartContainer.style.left = cart.offsetLeft/1.4 + 'px';
 }
 //! login and cart section
-
-menuButton.addEventListener('click', () => {
-    menu.classList.toggle('-left-96')
-    menu.classList.toggle('left-0')
-})
-closeMenuButton.addEventListener('click', () => {
-    menu.classList.toggle('-left-96');
-    menu.classList.toggle('left-0')
-})

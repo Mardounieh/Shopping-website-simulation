@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="assets/scripts/app.js"></script>
+    <script defer src="assets/scripts/limitText.js" type="module"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/icons/css/all.css">
     <title>Shop</title>
 </head>
-<body class="flex flex-col">
+<body class="flex flex-col bg-neutral-100">
     <header class="fixed top-0 w-full bg-white p-2 flex gap-2 items-center justify-between md:block">
         <aside class="">
             <i id="menuBtn" class="fal fa-bars text-xl text-white cursor-pointer border border-black rounded bg-emerald-600 px-2 md:hidden"></i>
@@ -23,7 +24,7 @@
             </ul>
         </aside>
         <nav class="flex justify-around md:flex-col-reverse lg:flex-row md:items-center gap-2">
-            <ul class="md:w-3/4 lg:w-1/2 hidden md:flex gap-2 justify-evenly items-center">
+            <ul id="menu" class="md:w-3/4 lg:w-1/2 hidden md:flex gap-2 justify-evenly items-center">
                 <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/boot.png" alt="Boot"><span>Boots</span></button></li>
                 <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/jeans.png" alt="Jeans"><span>Jeans</span></button></li>
                 <li><button class="flex gap-2 hover:border-b-2 border-emerald-400 pb-1"><img src="assets/icons/shirt.png" alt="Shirt"><span>Shirts</span></button></li>
@@ -33,7 +34,7 @@
             </ul>
             <div id="menu" class="flex items-center gap-2">
                 <div class="border-[1px] px-2 border-black rounded">
-                    <input type="text" placeholder="Search Products" class="outline-none caret-emerald-600">
+                    <input id="searchInput" type="text" placeholder="Search Products" class="outline-none caret-emerald-600">
                     <i class="fal fa-magnifying-glass cursor-pointer text-xl"></i>
                 </div>
                 <div id="userButtons" class="flex items-center gap-3 border rounded border-slate-900">
@@ -58,11 +59,11 @@
         </aside>
         <aside id="loginSection" class="hidden absolute w-1/4 border bg-white border-emerald-500 rounded-lg p-2 top-12">
             <div class="flex flex-col gap-2 items-center">
-                <div class="border p-1 rounded border-emerald-400 w-full">
+                <div class="flex items-center gap-1 border p-1 rounded border-emerald-400 w-full">
                     <i class="fal fa-user"></i>
                     <input type="text" placeholder="Username" class="outline-none">
                 </div>
-                <div class="border p-1 rounded border-emerald-400 w-full">
+                <div class="flex items-center gap-1 border p-1 rounded border-emerald-400 w-full">
                     <i class="fal fa-key"></i>
                     <input type="password" placeholder="Password" class="outline-none">
                 </div>
@@ -70,7 +71,7 @@
             </div>
         </aside>
     </header>
-    <main id="main" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-4 items-center justify-items-center bg-neutral-100">
+    <main id="main" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-4 items-center justify-items-center place-items-center bg-neutral-100">
     </main>
 </body>
 </html>
