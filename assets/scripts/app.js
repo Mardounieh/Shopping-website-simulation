@@ -23,9 +23,10 @@ closeMenuButton.addEventListener('click', () => {
 
 //* Filter Product Section
 const filterProducts = async (event) => {
+    let targetCat = event.target.nodeName === "IMG" ? event.target.alt : event.target.innerText;
     const result = await fetch('./assets/products/products.json')
     const data = await result.json();
-    const productResults = data.filter(product => product.category === event.target.innerHTML.toLowerCase());
+    const productResults = data.filter((product) => product.category === targetCat.toLowerCase());
     createProduct(productResults);
 }
 catItems.forEach(catItem => catItem.addEventListener('click', filterProducts));
