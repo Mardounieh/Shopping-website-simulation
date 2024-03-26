@@ -31,13 +31,14 @@ closeMenuButton.addEventListener('click', () => {
 })
 //! login and cart section
 const loginFunction = async () => {
-    const username = document.getElementById('username');
-    const password = document.getElementById('password');
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
     const request = await fetch('https://fakestoreapi.com/auth/login',{
         method:'POST',
         body: JSON.stringify({username, password}),
         headers : {"Content-Type" : "Application/json"}
     })
+    console.log(request);
 }
 loginButton.addEventListener('click', loginFunction)
 login.addEventListener('click', () => {
@@ -115,7 +116,6 @@ const addToFavorite = (event) => {
 const showDescription = (event) => {
     const description = event.target.parentElement.parentElement.children[2];
     const productContainer = event.target.parentElement.parentElement;
-    console.log(productContainer);
     if(event.target.classList[1] === 'fal') {
         event.target.classList.replace('fal','fas')
         description.classList.replace('hidden','block')
