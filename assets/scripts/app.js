@@ -31,6 +31,7 @@ closeMenuButton.addEventListener('click', () => {
 })
 //! login and cart section
 const loginFunction = async () => {
+    loginButton.value = `Logging in...`;
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const request = await fetch('https://fakestoreapi.com/auth/login',{
@@ -38,7 +39,14 @@ const loginFunction = async () => {
         body: JSON.stringify({username, password}),
         headers : {"Content-Type" : "Application/json"}
     })
-    console.log(request);
+    if(request.ok) {
+        loginButton.value = `Logged in`;
+    } else {
+        loginButton.value = `False info`;
+        setTimeout(() => {
+            loginButton.value = `Login`;
+        }, 1000);
+    }
 }
 loginButton.addEventListener('click', loginFunction)
 login.addEventListener('click', () => {
