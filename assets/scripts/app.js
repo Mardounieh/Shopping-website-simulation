@@ -31,7 +31,7 @@ closeMenuButton.addEventListener('click', () => {
 })
 //! login and cart section
 const loginFunction = async () => {
-    loginButton.value = `Logging in...`;
+    loginButton.value = `Logging...`;
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const request = await fetch('https://fakestoreapi.com/auth/login',{
@@ -40,13 +40,47 @@ const loginFunction = async () => {
         headers : {"Content-Type" : "Application/json"}
     })
     if(request.ok) {
-        loginButton.value = `Logged in`;
+        loginButton.value = `Logged`;
     } else {
         loginButton.value = `False info`;
         setTimeout(() => {
             loginButton.value = `Login`;
         }, 1000);
     }
+    const result = request.json();
+    result.then((userData) => {
+        localStorage.setItem("user",JSON.stringify({
+            isLogged : true,
+            username,
+            token : userData.token,
+            lastLogin : [
+                new Date().toLocaleDateString(),
+                new Date().toLocaleTimeString()
+            ]
+        }))
+        loggedUser(JSON.parse(localStorage.getItem("user")));
+    })
+}
+function loggedUser(userData) {
+    if(!userData) return;
+    login.classList.toggle("fa-user");
+    login.classList.toggle("fa-user-check");
+    loginSection.innerHTML = `
+        <div class="flex flex-col gap-2 p-2">
+            <div class="flex gap-2 items-center">
+                <i class="fal fa-circle-user text-2xl"></i>
+                <p>Hey <span class="bg-emerald-800 text-white p-1 rounded">${userData.username}</span> , Welcome!</p>
+            </div>
+            <div class="flex gap-2 items-center">
+                <i class="fal fa-clock text-2xl"></i>
+                <p>Last Login : <span class="bg-emerald-800 text-white p-1 rounded">${userData.lastLogin[0]}, ${userData.lastLogin[1]}</span></p>
+            </div>
+            <div>
+                <button class="duration-200 border border-emerald-800 text-emerald-800 hover:text-white hover:bg-emerald-800 active:scale-90 xl:w-1/4 sm:w-1/3 rounded text-xl cursor-pointer p-1">Logout</button>
+            </div>
+        </div>
+        
+    `
 }
 loginButton.addEventListener('click', loginFunction)
 login.addEventListener('click', () => {
@@ -104,7 +138,7 @@ const addToCart = async (event) => {
         <div class="flex items-center gap-4">
             <div class="flex flex-col items-center">
             <i class="fas fa-chevron-up cursor-pointer"></i>
-            <span>0</span>
+            <span>1</span>
             <i class="fas fa-chevron-down cursor-pointer"></i>
             </div>
             <i class="fas fa-trash-can cursor-pointer duration-200 hover:text-rose-600"></i>
@@ -203,6 +237,8 @@ search.addEventListener('input', searchProducts)
 //? Search section
 
 const getProducts = async () => {
+    const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
+    loggedUser(userData);
     const result = await fetch('./assets/products/products.json')
     const data = await result.json();
     createProduct(data)
