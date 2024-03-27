@@ -76,11 +76,32 @@ function loggedUser(userData) {
                 <p>Last Login : <span class="bg-emerald-800 text-white p-1 rounded">${userData.lastLogin[0]}, ${userData.lastLogin[1]}</span></p>
             </div>
             <div>
-                <button class="duration-200 border border-emerald-800 text-emerald-800 hover:text-white hover:bg-emerald-800 active:scale-90 xl:w-1/4 sm:w-1/3 rounded text-xl cursor-pointer p-1">Logout</button>
+                <button id="logoutBtn" class="duration-200 border border-emerald-800 text-emerald-800 hover:text-white hover:bg-emerald-800 active:scale-90 xl:w-1/4 sm:w-1/3 rounded text-xl cursor-pointer p-1">Logout</button>
             </div>
         </div>
-        
-    `
+    `;
+    document.getElementById('logoutBtn').addEventListener('click',logout);
+}
+function logout() {
+    login.classList.toggle("fa-user");
+    login.classList.toggle("fa-user-check");
+    loginSection.innerHTML = `
+        <div class="flex flex-col gap-2 items-center">
+        <div class="flex items-center gap-1 border p-1 rounded border-emerald-400 w-full">
+            <i class="fal fa-user"></i>
+            <input id="username" type="text" placeholder="Username : derek" class="outline-none w-full">
+        </div>
+        <div class="flex items-center gap-1 border p-1 rounded border-emerald-400 w-full">
+            <i class="fal fa-key"></i>
+            <input id="password" type="password" placeholder="Password : jklg*_56" class="outline-none w-full">
+            </div>
+            <input id="loginButton" type="button" value="Login" class="duration-200 border border-emerald-800 text-emerald-800 hover:text-white hover:bg-emerald-800 active:scale-90 xl:w-1/4 sm:w-1/3 rounded text-xl cursor-pointer p-1">
+        </div>
+    `;
+    const userData = JSON.parse(localStorage.getItem("user"));
+    userData.token = "";
+    userData.isLogged = false;
+    localStorage.setItem("user",JSON.stringify(userData));
 }
 loginButton.addEventListener('click', loginFunction)
 login.addEventListener('click', () => {
@@ -237,7 +258,7 @@ search.addEventListener('input', searchProducts)
 //? Search section
 
 const getProducts = async () => {
-    const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
+    const userData = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user")).isLogged === true ? JSON.parse(localStorage.getItem("user")) : "";
     loggedUser(userData);
     const result = await fetch('./assets/products/products.json')
     const data = await result.json();
